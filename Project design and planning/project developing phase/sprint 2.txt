@@ -1,0 +1,1198 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "e47c50d7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np \n",
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "abc35f61",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Index(['Port', 'Traffic in Eleventh Plan (MT) (2011-12)Proj.',\n",
+      "       'Traffic in Eleventh Plan (MT) (2011-12) Ach.',\n",
+      "       'Traffic in Eleventh Plan (MT) (2011-12) %',\n",
+      "       'Total Capacity  in Eleventh Plan (MT) (2011-12) Proj.',\n",
+      "       'Total Capacity  in Eleventh Plan (MT) (2011-12) Ach.',\n",
+      "       'Total Capacity  in Eleventh Plan (MT) (2011-12) %'],\n",
+      "      dtype='object')\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Port</th>\n",
+       "      <th>Traffic in Eleventh Plan (MT) (2011-12)Proj.</th>\n",
+       "      <th>Traffic in Eleventh Plan (MT) (2011-12) Ach.</th>\n",
+       "      <th>Traffic in Eleventh Plan (MT) (2011-12) %</th>\n",
+       "      <th>Total Capacity  in Eleventh Plan (MT) (2011-12) Proj.</th>\n",
+       "      <th>Total Capacity  in Eleventh Plan (MT) (2011-12) Ach.</th>\n",
+       "      <th>Total Capacity  in Eleventh Plan (MT) (2011-12) %</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Kolkata</td>\n",
+       "      <td>1343</td>\n",
+       "      <td>1223</td>\n",
+       "      <td>9100</td>\n",
+       "      <td>3145</td>\n",
+       "      <td>1635</td>\n",
+       "      <td>5100</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Haldia</td>\n",
+       "      <td>4450</td>\n",
+       "      <td>3101</td>\n",
+       "      <td>7000</td>\n",
+       "      <td>6340</td>\n",
+       "      <td>5070</td>\n",
+       "      <td>7900</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Paradeep</td>\n",
+       "      <td>7640</td>\n",
+       "      <td>5425</td>\n",
+       "      <td>7100</td>\n",
+       "      <td>10640</td>\n",
+       "      <td>7650</td>\n",
+       "      <td>7100</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Visakhapatnam</td>\n",
+       "      <td>8220</td>\n",
+       "      <td>6742</td>\n",
+       "      <td>8200</td>\n",
+       "      <td>10810</td>\n",
+       "      <td>7293</td>\n",
+       "      <td>6700</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Ennore</td>\n",
+       "      <td>4700</td>\n",
+       "      <td>1496</td>\n",
+       "      <td>3200</td>\n",
+       "      <td>6420</td>\n",
+       "      <td>3100</td>\n",
+       "      <td>4800</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "            Port  Traffic in Eleventh Plan (MT) (2011-12)Proj.  \\\n",
+       "0        Kolkata                                          1343   \n",
+       "1         Haldia                                          4450   \n",
+       "2       Paradeep                                          7640   \n",
+       "3  Visakhapatnam                                          8220   \n",
+       "4         Ennore                                          4700   \n",
+       "\n",
+       "   Traffic in Eleventh Plan (MT) (2011-12) Ach.  \\\n",
+       "0                                          1223   \n",
+       "1                                          3101   \n",
+       "2                                          5425   \n",
+       "3                                          6742   \n",
+       "4                                          1496   \n",
+       "\n",
+       "   Traffic in Eleventh Plan (MT) (2011-12) %  \\\n",
+       "0                                       9100   \n",
+       "1                                       7000   \n",
+       "2                                       7100   \n",
+       "3                                       8200   \n",
+       "4                                       3200   \n",
+       "\n",
+       "   Total Capacity  in Eleventh Plan (MT) (2011-12) Proj.  \\\n",
+       "0                                               3145       \n",
+       "1                                               6340       \n",
+       "2                                              10640       \n",
+       "3                                              10810       \n",
+       "4                                               6420       \n",
+       "\n",
+       "   Total Capacity  in Eleventh Plan (MT) (2011-12) Ach.  \\\n",
+       "0                                               1635      \n",
+       "1                                               5070      \n",
+       "2                                               7650      \n",
+       "3                                               7293      \n",
+       "4                                               3100      \n",
+       "\n",
+       "   Total Capacity  in Eleventh Plan (MT) (2011-12) %  \n",
+       "0                                               5100  \n",
+       "1                                               7900  \n",
+       "2                                               7100  \n",
+       "3                                               6700  \n",
+       "4                                               4800  "
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df = pd.read_csv('datafile_02.csv')\n",
+    "print(df.columns)\n",
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "8d13a757",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Port</th>\n",
+       "      <th>Traffic_Projected</th>\n",
+       "      <th>Traffic_Achieved</th>\n",
+       "      <th>Traffic in Eleventh Plan (MT) (2011-12) %</th>\n",
+       "      <th>Total_Capacity_Projected</th>\n",
+       "      <th>Total_Capacity_Achieved</th>\n",
+       "      <th>Total Capacity  in Eleventh Plan (MT) (2011-12) %</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Kolkata</td>\n",
+       "      <td>1343</td>\n",
+       "      <td>1223</td>\n",
+       "      <td>9100</td>\n",
+       "      <td>3145</td>\n",
+       "      <td>1635</td>\n",
+       "      <td>5100</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Haldia</td>\n",
+       "      <td>4450</td>\n",
+       "      <td>3101</td>\n",
+       "      <td>7000</td>\n",
+       "      <td>6340</td>\n",
+       "      <td>5070</td>\n",
+       "      <td>7900</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Paradeep</td>\n",
+       "      <td>7640</td>\n",
+       "      <td>5425</td>\n",
+       "      <td>7100</td>\n",
+       "      <td>10640</td>\n",
+       "      <td>7650</td>\n",
+       "      <td>7100</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Visakhapatnam</td>\n",
+       "      <td>8220</td>\n",
+       "      <td>6742</td>\n",
+       "      <td>8200</td>\n",
+       "      <td>10810</td>\n",
+       "      <td>7293</td>\n",
+       "      <td>6700</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Ennore</td>\n",
+       "      <td>4700</td>\n",
+       "      <td>1496</td>\n",
+       "      <td>3200</td>\n",
+       "      <td>6420</td>\n",
+       "      <td>3100</td>\n",
+       "      <td>4800</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>Chennai</td>\n",
+       "      <td>5750</td>\n",
+       "      <td>5571</td>\n",
+       "      <td>9700</td>\n",
+       "      <td>7230</td>\n",
+       "      <td>7972</td>\n",
+       "      <td>11000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>Tuticorin</td>\n",
+       "      <td>3172</td>\n",
+       "      <td>2810</td>\n",
+       "      <td>8900</td>\n",
+       "      <td>6398</td>\n",
+       "      <td>3334</td>\n",
+       "      <td>5200</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>Cochin</td>\n",
+       "      <td>3817</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>5300</td>\n",
+       "      <td>5475</td>\n",
+       "      <td>4098</td>\n",
+       "      <td>7400</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>NMPT</td>\n",
+       "      <td>4881</td>\n",
+       "      <td>3294</td>\n",
+       "      <td>6800</td>\n",
+       "      <td>6050</td>\n",
+       "      <td>5097</td>\n",
+       "      <td>8400</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>Mormugao</td>\n",
+       "      <td>4455</td>\n",
+       "      <td>3900</td>\n",
+       "      <td>8800</td>\n",
+       "      <td>6690</td>\n",
+       "      <td>4190</td>\n",
+       "      <td>6200</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>Mumbai</td>\n",
+       "      <td>7105</td>\n",
+       "      <td>5618</td>\n",
+       "      <td>7900</td>\n",
+       "      <td>9191</td>\n",
+       "      <td>4453</td>\n",
+       "      <td>4800</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>11</th>\n",
+       "      <td>JNPT</td>\n",
+       "      <td>6604</td>\n",
+       "      <td>6575</td>\n",
+       "      <td>10000</td>\n",
+       "      <td>9560</td>\n",
+       "      <td>6400</td>\n",
+       "      <td>6600</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>Kandla</td>\n",
+       "      <td>8672</td>\n",
+       "      <td>8250</td>\n",
+       "      <td>9500</td>\n",
+       "      <td>12220</td>\n",
+       "      <td>8691</td>\n",
+       "      <td>7100</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "             Port  Traffic_Projected  Traffic_Achieved  \\\n",
+       "0         Kolkata               1343              1223   \n",
+       "1          Haldia               4450              3101   \n",
+       "2        Paradeep               7640              5425   \n",
+       "3   Visakhapatnam               8220              6742   \n",
+       "4          Ennore               4700              1496   \n",
+       "5         Chennai               5750              5571   \n",
+       "6       Tuticorin               3172              2810   \n",
+       "7          Cochin               3817              2010   \n",
+       "8            NMPT               4881              3294   \n",
+       "9        Mormugao               4455              3900   \n",
+       "10         Mumbai               7105              5618   \n",
+       "11           JNPT               6604              6575   \n",
+       "12         Kandla               8672              8250   \n",
+       "\n",
+       "    Traffic in Eleventh Plan (MT) (2011-12) %  Total_Capacity_Projected  \\\n",
+       "0                                        9100                      3145   \n",
+       "1                                        7000                      6340   \n",
+       "2                                        7100                     10640   \n",
+       "3                                        8200                     10810   \n",
+       "4                                        3200                      6420   \n",
+       "5                                        9700                      7230   \n",
+       "6                                        8900                      6398   \n",
+       "7                                        5300                      5475   \n",
+       "8                                        6800                      6050   \n",
+       "9                                        8800                      6690   \n",
+       "10                                       7900                      9191   \n",
+       "11                                      10000                      9560   \n",
+       "12                                       9500                     12220   \n",
+       "\n",
+       "    Total_Capacity_Achieved  Total Capacity  in Eleventh Plan (MT) (2011-12) %  \n",
+       "0                      1635                                               5100  \n",
+       "1                      5070                                               7900  \n",
+       "2                      7650                                               7100  \n",
+       "3                      7293                                               6700  \n",
+       "4                      3100                                               4800  \n",
+       "5                      7972                                              11000  \n",
+       "6                      3334                                               5200  \n",
+       "7                      4098                                               7400  \n",
+       "8                      5097                                               8400  \n",
+       "9                      4190                                               6200  \n",
+       "10                     4453                                               4800  \n",
+       "11                     6400                                               6600  \n",
+       "12                     8691                                               7100  "
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Renaming the columns\n",
+    "df.rename(columns = {'Traffic in Eleventh Plan (MT) (2011-12)Proj.':'Traffic_Projected','Traffic in Eleventh Plan (MT) (2011-12) Ach.':'Traffic_Achieved', 'Total Capacity  in Eleventh Plan (MT) (2011-12) Proj.':'Total_Capacity_Projected', 'Total Capacity  in Eleventh Plan (MT) (2011-12) Ach.':'Total_Capacity_Achieved'}, inplace = True)\n",
+    "df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "7f3c9590",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0     91.06\n",
+       "1     69.69\n",
+       "2     71.01\n",
+       "3     82.02\n",
+       "4     31.83\n",
+       "5     96.89\n",
+       "6     88.59\n",
+       "7     52.66\n",
+       "8     67.49\n",
+       "9     87.54\n",
+       "10    79.07\n",
+       "11    99.56\n",
+       "12    95.13\n",
+       "dtype: float64"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Perparing the Calculations:\n",
+    "\n",
+    "Traffic_Percent = round((df.Traffic_Achieved/df.Traffic_Projected)*100,2)\n",
+    "Traffic_Percent"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "eebacfbe",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0      51.99\n",
+       "1      79.97\n",
+       "2      71.90\n",
+       "3      67.47\n",
+       "4      48.29\n",
+       "5     110.26\n",
+       "6      52.11\n",
+       "7      74.85\n",
+       "8      84.25\n",
+       "9      62.63\n",
+       "10     48.45\n",
+       "11     66.95\n",
+       "12     71.12\n",
+       "dtype: float64"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "Total_Percent = round( (df.Total_Capacity_Achieved/df.Total_Capacity_Projected)*100,2)\n",
+    "Total_Percent"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "b03c7e30",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Port</th>\n",
+       "      <th>Traffic_Projected</th>\n",
+       "      <th>Traffic_Achieved</th>\n",
+       "      <th>Traffic_Percent%</th>\n",
+       "      <th>Total_Capacity_Projected</th>\n",
+       "      <th>Total_Capacity_Achieved</th>\n",
+       "      <th>Total_Percent%</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>Kolkata</td>\n",
+       "      <td>1343</td>\n",
+       "      <td>1223</td>\n",
+       "      <td>91.06</td>\n",
+       "      <td>3145</td>\n",
+       "      <td>1635</td>\n",
+       "      <td>51.99</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>Haldia</td>\n",
+       "      <td>4450</td>\n",
+       "      <td>3101</td>\n",
+       "      <td>69.69</td>\n",
+       "      <td>6340</td>\n",
+       "      <td>5070</td>\n",
+       "      <td>79.97</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>Paradeep</td>\n",
+       "      <td>7640</td>\n",
+       "      <td>5425</td>\n",
+       "      <td>71.01</td>\n",
+       "      <td>10640</td>\n",
+       "      <td>7650</td>\n",
+       "      <td>71.90</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>Visakhapatnam</td>\n",
+       "      <td>8220</td>\n",
+       "      <td>6742</td>\n",
+       "      <td>82.02</td>\n",
+       "      <td>10810</td>\n",
+       "      <td>7293</td>\n",
+       "      <td>67.47</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>Ennore</td>\n",
+       "      <td>4700</td>\n",
+       "      <td>1496</td>\n",
+       "      <td>31.83</td>\n",
+       "      <td>6420</td>\n",
+       "      <td>3100</td>\n",
+       "      <td>48.29</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>Chennai</td>\n",
+       "      <td>5750</td>\n",
+       "      <td>5571</td>\n",
+       "      <td>96.89</td>\n",
+       "      <td>7230</td>\n",
+       "      <td>7972</td>\n",
+       "      <td>110.26</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>Tuticorin</td>\n",
+       "      <td>3172</td>\n",
+       "      <td>2810</td>\n",
+       "      <td>88.59</td>\n",
+       "      <td>6398</td>\n",
+       "      <td>3334</td>\n",
+       "      <td>52.11</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>Cochin</td>\n",
+       "      <td>3817</td>\n",
+       "      <td>2010</td>\n",
+       "      <td>52.66</td>\n",
+       "      <td>5475</td>\n",
+       "      <td>4098</td>\n",
+       "      <td>74.85</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>NMPT</td>\n",
+       "      <td>4881</td>\n",
+       "      <td>3294</td>\n",
+       "      <td>67.49</td>\n",
+       "      <td>6050</td>\n",
+       "      <td>5097</td>\n",
+       "      <td>84.25</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>Mormugao</td>\n",
+       "      <td>4455</td>\n",
+       "      <td>3900</td>\n",
+       "      <td>87.54</td>\n",
+       "      <td>6690</td>\n",
+       "      <td>4190</td>\n",
+       "      <td>62.63</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>Mumbai</td>\n",
+       "      <td>7105</td>\n",
+       "      <td>5618</td>\n",
+       "      <td>79.07</td>\n",
+       "      <td>9191</td>\n",
+       "      <td>4453</td>\n",
+       "      <td>48.45</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>11</th>\n",
+       "      <td>JNPT</td>\n",
+       "      <td>6604</td>\n",
+       "      <td>6575</td>\n",
+       "      <td>99.56</td>\n",
+       "      <td>9560</td>\n",
+       "      <td>6400</td>\n",
+       "      <td>66.95</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>Kandla</td>\n",
+       "      <td>8672</td>\n",
+       "      <td>8250</td>\n",
+       "      <td>95.13</td>\n",
+       "      <td>12220</td>\n",
+       "      <td>8691</td>\n",
+       "      <td>71.12</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "             Port  Traffic_Projected  Traffic_Achieved  Traffic_Percent%  \\\n",
+       "0         Kolkata               1343              1223             91.06   \n",
+       "1          Haldia               4450              3101             69.69   \n",
+       "2        Paradeep               7640              5425             71.01   \n",
+       "3   Visakhapatnam               8220              6742             82.02   \n",
+       "4          Ennore               4700              1496             31.83   \n",
+       "5         Chennai               5750              5571             96.89   \n",
+       "6       Tuticorin               3172              2810             88.59   \n",
+       "7          Cochin               3817              2010             52.66   \n",
+       "8            NMPT               4881              3294             67.49   \n",
+       "9        Mormugao               4455              3900             87.54   \n",
+       "10         Mumbai               7105              5618             79.07   \n",
+       "11           JNPT               6604              6575             99.56   \n",
+       "12         Kandla               8672              8250             95.13   \n",
+       "\n",
+       "    Total_Capacity_Projected  Total_Capacity_Achieved  Total_Percent%  \n",
+       "0                       3145                     1635           51.99  \n",
+       "1                       6340                     5070           79.97  \n",
+       "2                      10640                     7650           71.90  \n",
+       "3                      10810                     7293           67.47  \n",
+       "4                       6420                     3100           48.29  \n",
+       "5                       7230                     7972          110.26  \n",
+       "6                       6398                     3334           52.11  \n",
+       "7                       5475                     4098           74.85  \n",
+       "8                       6050                     5097           84.25  \n",
+       "9                       6690                     4190           62.63  \n",
+       "10                      9191                     4453           48.45  \n",
+       "11                      9560                     6400           66.95  \n",
+       "12                     12220                     8691           71.12  "
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Replacing the existing columns with newly created columns\n",
+    "df.rename(columns = {'Traffic in Eleventh Plan (MT) (2011-12) %':'Traffic_Percent%','Total Capacity  in Eleventh Plan (MT) (2011-12) %':'Total_Percent%'}, inplace = True)\n",
+    "df.iloc[:,3:4] = Traffic_Percent\n",
+    "df.iloc[:,6:] = Total_Percent\n",
+    "df"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "6244f28e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(13, 7)"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.shape"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "9cc09bdf",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 13 entries, 0 to 12\n",
+      "Data columns (total 7 columns):\n",
+      " #   Column                    Non-Null Count  Dtype  \n",
+      "---  ------                    --------------  -----  \n",
+      " 0   Port                      13 non-null     object \n",
+      " 1   Traffic_Projected         13 non-null     int64  \n",
+      " 2   Traffic_Achieved          13 non-null     int64  \n",
+      " 3   Traffic_Percent%          13 non-null     float64\n",
+      " 4   Total_Capacity_Projected  13 non-null     int64  \n",
+      " 5   Total_Capacity_Achieved   13 non-null     int64  \n",
+      " 6   Total_Percent%            13 non-null     float64\n",
+      "dtypes: float64(2), int64(4), object(1)\n",
+      "memory usage: 856.0+ bytes\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Checking for null values\n",
+    "\n",
+    "df.isnull().sum()\n",
+    "df.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "6539c7fa",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Port                        0\n",
+       "Traffic_Projected           0\n",
+       "Traffic_Achieved            0\n",
+       "Traffic_Percent%            0\n",
+       "Total_Capacity_Projected    0\n",
+       "Total_Capacity_Achieved     0\n",
+       "Total_Percent%              0\n",
+       "dtype: int64"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Checking for null values\n",
+    "\n",
+    "df.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "11ae9d5c",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Traffic_Projected</th>\n",
+       "      <th>Traffic_Achieved</th>\n",
+       "      <th>Traffic_Percent%</th>\n",
+       "      <th>Total_Capacity_Projected</th>\n",
+       "      <th>Total_Capacity_Achieved</th>\n",
+       "      <th>Total_Percent%</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>13.000000</td>\n",
+       "      <td>13.000000</td>\n",
+       "      <td>13.000000</td>\n",
+       "      <td>13.000000</td>\n",
+       "      <td>13.000000</td>\n",
+       "      <td>13.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>5446.846154</td>\n",
+       "      <td>4308.846154</td>\n",
+       "      <td>77.887692</td>\n",
+       "      <td>7705.307692</td>\n",
+       "      <td>5306.384615</td>\n",
+       "      <td>68.480000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>2133.280019</td>\n",
+       "      <td>2212.894855</td>\n",
+       "      <td>19.382398</td>\n",
+       "      <td>2570.242673</td>\n",
+       "      <td>2140.254796</td>\n",
+       "      <td>17.252637</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>1343.000000</td>\n",
+       "      <td>1223.000000</td>\n",
+       "      <td>31.830000</td>\n",
+       "      <td>3145.000000</td>\n",
+       "      <td>1635.000000</td>\n",
+       "      <td>48.290000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>4450.000000</td>\n",
+       "      <td>2810.000000</td>\n",
+       "      <td>69.690000</td>\n",
+       "      <td>6340.000000</td>\n",
+       "      <td>4098.000000</td>\n",
+       "      <td>52.110000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>4881.000000</td>\n",
+       "      <td>3900.000000</td>\n",
+       "      <td>82.020000</td>\n",
+       "      <td>6690.000000</td>\n",
+       "      <td>5070.000000</td>\n",
+       "      <td>67.470000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>7105.000000</td>\n",
+       "      <td>5618.000000</td>\n",
+       "      <td>91.060000</td>\n",
+       "      <td>9560.000000</td>\n",
+       "      <td>7293.000000</td>\n",
+       "      <td>74.850000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>8672.000000</td>\n",
+       "      <td>8250.000000</td>\n",
+       "      <td>99.560000</td>\n",
+       "      <td>12220.000000</td>\n",
+       "      <td>8691.000000</td>\n",
+       "      <td>110.260000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       Traffic_Projected  Traffic_Achieved  Traffic_Percent%  \\\n",
+       "count          13.000000         13.000000         13.000000   \n",
+       "mean         5446.846154       4308.846154         77.887692   \n",
+       "std          2133.280019       2212.894855         19.382398   \n",
+       "min          1343.000000       1223.000000         31.830000   \n",
+       "25%          4450.000000       2810.000000         69.690000   \n",
+       "50%          4881.000000       3900.000000         82.020000   \n",
+       "75%          7105.000000       5618.000000         91.060000   \n",
+       "max          8672.000000       8250.000000         99.560000   \n",
+       "\n",
+       "       Total_Capacity_Projected  Total_Capacity_Achieved  Total_Percent%  \n",
+       "count                 13.000000                13.000000       13.000000  \n",
+       "mean                7705.307692              5306.384615       68.480000  \n",
+       "std                 2570.242673              2140.254796       17.252637  \n",
+       "min                 3145.000000              1635.000000       48.290000  \n",
+       "25%                 6340.000000              4098.000000       52.110000  \n",
+       "50%                 6690.000000              5070.000000       67.470000  \n",
+       "75%                 9560.000000              7293.000000       74.850000  \n",
+       "max                12220.000000              8691.000000      110.260000  "
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "312e05d5",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<AxesSubplot:xlabel='Port', ylabel='Traffic_Projected'>"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.scatter(df.Port,df.Traffic_Achieved)\n",
+    "sns.set_style('white')\n",
+    "sns.set_context('notebook')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "f47e7866",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<AxesSubplot:xlabel='Port', ylabel='Traffic_Projected'>"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "sns.relplot(data=df,x=\"Traffic_Projected\",y='Traffic_Achieved',hue='Port')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "id": "4de74efb",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<seaborn.axisgrid.FacetGrid at 0x2101c0b47c0>"
+      ]
+     },
+     "execution_count": 16,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      
+      "text/plain": [
+       "<Figure size 475.35x360 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "sns.relplot(data=df,x=\"Traffic_Projected\",y='Traffic_Achieved',hue='Port')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "id": "af7ffa8d",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "([<matplotlib.patches.Wedge at 0x2101c185eb0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c192400>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c192880>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c192d00>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c19f1c0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c185040>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c19fa90>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c19ff10>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c1ae3d0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c1ae850>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c1aecd0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c30c190>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c30c610>],\n",
+       " [Text(-0.8227559810574577, 0.7301182066173808, 'Kolkata'),\n",
+       "  Text(-0.9813250715975654, 0.49699205612769437, 'Haldia'),\n",
+       "  Text(-1.0974872598930092, -0.07430823892769065, 'Paradeep'),\n",
+       "  Text(-0.7887307236408752, -0.7667488803936667, 'Visakhapatnam'),\n",
+       "  Text(-0.24681684658019215, -1.0719521650914328, 'Ennore'),\n",
+       "  Text(0.2586200998460918, -1.0691658636318304, 'Chennai'),\n",
+       "  Text(0.6508775584042567, -0.8867685176897709, 'Tuticorin'),\n",
+       "  Text(0.8904218552781084, -0.645870667891871, 'Cochin'),\n",
+       "  Text(1.068042956118005, -0.2632190036580062, 'NMPT'),\n",
+       "  Text(1.083660055487473, 0.18889384357592884, 'Mormugao'),\n",
+       "  Text(0.85153993640342, 0.6963330644957625, 'Mumbai'),\n",
+       "  Text(0.3009306210259454, 1.058036275998578, 'JNPT'),\n",
+       "  Text(-0.4290148932653011, 1.0128900341876024, 'Kandla')])"
+      ]
+     },
+     "execution_count": 17,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      
+       "<Figure size 1260x252 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "colors=['r','k','g','b','y']\n",
+    "plt.pie(df.Traffic_Projected,labels=df.Port,colors=colors,startangle=135)\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "id": "37445aaf",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "([<matplotlib.patches.Wedge at 0x2101c346be0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c354130>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c3545b0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c3549a0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c354dc0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c346af0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c363610>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c363a30>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c363e50>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c3712b0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c3716d0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c371af0>,\n",
+       "  <matplotlib.patches.Wedge at 0x2101c371f10>],\n",
+       " [Text(-0.8292984732192152, 0.7226783809664425, 'Kolkata'),\n",
+       "  Text(-0.9785761523202932, 0.5023830352529937, 'Haldia'),\n",
+       "  Text(-1.0999917035067, -0.004272261278115301, 'Paradeep'),\n",
+       "  Text(-0.8509776584186843, -0.6970201036356506, 'Visakhapatnam'),\n",
+       "  Text(-0.4510472262335761, -1.0032728440992498, 'Ennore'),\n",
+       "  Text(-0.02876119418292548, -1.0996239328557615, 'Chennai'),\n",
+       "  Text(0.472408825560159, -0.9933931253702492, 'Tuticorin'),\n",
+       "  Text(0.720536507722156, -0.831160117570351, 'Cochin'),\n",
+       "  Text(0.932508592180857, -0.5834618458038848, 'NMPT'),\n",
+       "  Text(1.086706953339725, -0.1704933944852213, 'Mormugao'),\n",
+       "  Text(1.022266221308968, 0.406167173428238, 'Mumbai'),\n",
+       "  Text(0.535803745383295, 0.9606843115369551, 'JNPT'),\n",
+       "  Text(-0.3488393338981779, 1.0432215100952797, 'Kandla')])"
+      ]
+     },
+     "execution_count": 18,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": 
+    {
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.plot(df.Port,df.Total_Capacity_Projected,label='Cap Proj.')\n",
+    "plt.plot(df.Port,df.Total_Capacity_Achieved,label='Cap Ach.')\n",
+    "plt.legend()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "4c025f96",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+     
+       "<Figure size 1260x252 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.bar(df.Port,df.Total_Capacity_Projected)\n",
+    "sns.set_style('ticks')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "id": "b6d42262",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<matplotlib.legend.Legend at 0x2101633e8e0>"
+      ]
+     },
+     "execution_count": 21,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+    
+       "<Figure size 1260x252 with 1 Axes>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "plt.bar(df.Port,df.Total_Capacity_Projected,label='Total_capacity',color='g')\n",
+    "plt.bar(df.Port,df.Total_Capacity_Achieved,label='Achieved-capacity',color='k')\n",
+    "plt.legend()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "10ddca5a",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.8"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
